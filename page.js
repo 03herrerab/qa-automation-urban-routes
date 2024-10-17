@@ -1,16 +1,33 @@
 module.exports = {
-    // Inputs
+    
+    // Inputs 
     fromField: '#from',
     toField: '#to',
     phoneNumberField: '#phone',
     codeField: '#code',
+    cardNumberField: '//input[@id="number"]',
+    cardCodeField:'//div[@class="card-code-input"]//input[@id="code"]',
+    messageField:"//input[@id='comment']",
+    
     // Buttons
     callATaxiButton: 'button=Call a taxi',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
+    supportiveButton: '//div[starts-with(text(), "Supportive")]',
+    paymentMethodButton: '//div[@class="pp-text"]',
+    addCardButton:'//div[contains(text(),"Add card")]',
+    linkCardButton:"//button[normalize-space()='Link']",
+    cardAddedButton:"//div[@class='pp-title'][normalize-space()='Card']",
+    bAndHButton:"//div[@class='workflow']//div[1]//div[1]//div[2]//div[1]//span[1]",
+    addIcecream:"//div[@class='r-group']//div[1]//div[1]//div[2]//div[1]//div[3]",
+    verifyIcecream:"//div[@class='r-group']//div[1]//div[1]//div[2]//div[1]//div[2]",
+    orderButton:"//button[@class='smart-button']",
+    
     // Modals
     phoneNumberModal: '.modal',
+    supportiveOption: '//div[normalize-space()="Ice cream"]',
+    orderModal: "//div[@class='order-subbody']",
     // Functions
     fillAddresses: async function(from, to) {
         const fromField = await $(this.fromField);
@@ -48,4 +65,15 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
+    fillCardDetails: async function(number, cvv) {
+        const cardNumber = await $(this.cardNumberField);
+        await cardNumber.setValue(number);
+        const cardCode = await $(this.cardCodeField);
+        await cardCode.setValue(cvv);
+    },
+    leaveAMessage: async function (note) {
+        const message = await $(this.messageField);
+        await message.setValue(note);
+    }
+    
 };
